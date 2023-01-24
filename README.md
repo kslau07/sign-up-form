@@ -13,7 +13,7 @@ Create a simple sign-up page that has the contains the following fields:
 - Password
 - Confirm password
 
-It should also display a large picture on the left-hand side with a logo overlayed.
+It should also display a large picture on the left-hand side with a logo overlaid.
 
 > The design should approximately look like this:
 [Page layout](https://cdn.statically.io/gh/TheOdinProject/curriculum/5f37d43908ef92499e95a9b90fc3cc291a95014c/html_css/project-sign-up-form/sign-up-form.png)

@@ -1,4 +1,5 @@
 /* 
+	Use flex row wrap + flex 1 for fields
 
 	change "lobster" font-family
 
@@ -18,10 +19,32 @@
 	https://www.internetingishard.com/html-and-css/forms/
 	
 
-		*/
+*/
+
+/* my reset */
+* { margin: 0; padding: 0;  }
 
 :root {
 	font-size: 62.5%;
+	box-sizing: border-box;
+}
+
+body { font-size: 1.6rem; }
+
+input, label, button, select, textarea {
+	appearance: none;
+	font-family: inherit;
+	font-size: 100%;
+	box-sizing: border-box;
+}
+
+ul {
+	list-style-type: none;
+	padding: 0;
+}
+
+
+:root {
 	font-family: "Oxygen", Arial, Helvetica, sans-serif;
 
 	/* font-family: sans-serif; */
@@ -33,9 +56,7 @@
 	justify-content: center;
 }
 
-body {
-	font-size: 1.6rem;
-}
+
 
 .leftSide :where(a:link, a:visited, a:hover, a:active) {
 	color: #fff;
@@ -118,41 +139,82 @@ div > p:last-child {
 div.middle {
 	background-color: hsla(0, 0%, 100%, 1);
 	height: 28rem;
-	padding: 0rem 4rem;
+	padding: 3rem 5rem;
 	box-shadow: 0px 5px 3px#ddd;
+}
 
+.middle > p:only-of-type {
+	margin-bottom: 3rem;
+}
 
+/* Field style */
+
+label {
+	/* padding: 1rem; */
+	margin: 1rem 0;
+}
+
+input {
+	margin: 0.6rem 0;
+	height: 3rem;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+
+label, input { 
+	font-size: 1.4rem;
+	display: block;
+	width: 100%;
+	/* margin-bottom: 2rem; */
+	/* padding: 0.5rem; */
+}
+
+li {
+	display: flex;
+	flex-direction: row wrap-reverse;
+}
+
+.fieldContainer {
+	display: flex;
+	flex: row;
+}
+
+.leftFields { margin-right: 5rem; }
+
+.leftFields,
+.rightFields {
+	/* delete bg color */
+	/* background-color: #ddd; */
+	width: 35%;
 }
 
 div.bottom {
 	padding: 4rem;
 	font-size: 1.5rem;
-
-	
 }
 
 button {
-	background-color: #00f;
 	color: #fff;
 	font-family: inherit;
-	
 	font-weight: bold;
-	font-size: 1.5rem;
-	background-color: #5995da;
-	
+	font-size: 1.8rem;
+	background-color: hsla(112, 45%, 37%, 1);
 	border: none;
 	border-radius: 0.65rem;
-	padding: 1.1rem 4.5rem;
+	padding: 1.2rem 4.9rem;
+	margin-bottom: 1.5rem;
 	cursor: pointer;
 	box-shadow: 3px 3px 3px #ccc;
 }
 
 button:hover {
-	background-color: #76aeed;
+	background-color: hsla(112, 45%, 50%, 1);
+
 }
 
 button:active {
-	background-color: #407fc7;
+	background-color: hsla(112, 45%, 22%, 1);
+
 }
 
 .rightSide :where(a:link,a:visited,a:hover,a:active) {
