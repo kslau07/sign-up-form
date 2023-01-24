@@ -22,12 +22,9 @@
 */
 
 /* my reset */
-* { margin: 0; padding: 0;  }
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-:root {
-	font-size: 62.5%;
-	box-sizing: border-box;
-}
+:root {	font-size: 62.5%; }
 
 body { font-size: 1.6rem; }
 
@@ -41,6 +38,135 @@ input, label, button, select, textarea {
 ul {
 	list-style-type: none;
 	padding: 0;
+}
+
+/* css variables */
+:root {
+	--fullHeight: 98vh;
+	--fullWidth: 70vw;
+	--secHalf-LeftPad: 2.3rem;
+	display: flex;
+	justify-content: center;
+	background-color: #444;
+	font-family: "Oxygen",Arial, Helvetica, sans-serif;
+}
+
+.wholeBox {
+	height: var(--fullHeight);
+	width: 500px;
+}
+
+.firstHalf {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: #ccc;
+	height: 20rem;
+	background: top left/100% url(https://images.unsplash.com/photo-1485841938031-1bf81239b815?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1930&q=80);
+}
+
+.firstHalf-overlayBox {
+	color: #fff;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	height: 33%;
+	width: 100%;
+
+	background-color: hsla(200, 55%, 50%, 0.35);
+}
+
+.firstHalf-logoImage {
+	height: 70%;
+	margin-right: 1rem;
+}
+
+.firstHalf-brand {
+	font-family: "Permanent Marker";
+	font-size: 5rem;
+}
+
+.firstHalf-brand::first-letter {
+	color: hsla(170, 95%, 70%, 1.00);
+}
+
+.firstHalf-creditBox {
+	font-size: 1.2rem;
+	color: #fff;
+	position: absolute;
+	bottom: 5px;
+}
+
+.firstHalf-creditBox :is(a:link, a:visited, a:hover, a:active) { color:#fff; }
+
+.secHalf {
+	background-color: hsla(0, 0%, 90%, 1.00);
+}
+
+.secHalf-header {
+	padding: 2rem 6rem 4rem var(--secHalf-LeftPad);
+	font-weight: bold;
+	letter-spacing: 0.07rem;
+	line-height: 1.9rem;
+}
+
+.secHalf-header > p:nth-of-type(1) {}
+.secHalf-header > p:nth-of-type(2) { margin-bottom: 2rem; }
+.secHalf-header > p:nth-of-type(3) {}
+
+.secHalf-body {
+	padding: var(--secHalf-LeftPad);
+	background-color: white;
+	font-weight: bold;
+
+}
+
+/* Field style */
+
+label,
+input {
+	display: block;
+	width: 85%;
+}
+
+label {
+	margin-bottom: 1rem;
+}
+
+input {
+	border: 2px solid #ccc;
+	border-radius: 5px;
+
+}
+
+.secHalf-fieldsBox {
+	
+	background-color: #ddd; /* delete me */
+}
+
+.secHalf-leftFields {}
+
+.secHalf-rightFields {}
+
+.secHalf-footer {
+
+}
+
+/* If screen is wider than 700px then use desktop */
+
+@media only screen and (min-width: 700px) {
+	.wholeBox{
+		display: flex;
+		justify-content: center;
+	}
+
+	.firstHalf {
+		background: top left/200% url(https://images.unsplash.com/photo-1485841938031-1bf81239b815?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1930&q=80);
+
+	}
 }
 
 
