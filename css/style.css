@@ -43,8 +43,8 @@ ul {
 	list-style-type: none;
 	padding: 0;
 }
-
 /* my reset */
+
 body {
 	letter-spacing: 0.07rem;
 	line-height: 2.5rem;
@@ -54,7 +54,7 @@ body {
 /* css variables */
 :root {
 	--fullHeight: 98vh;
-	--fullWidth: 70vw;
+	--fullWidth: 98vw;
 	--secHalf-LeftPad: 2.3rem;
 	display: flex;
 	justify-content: center;
@@ -132,6 +132,7 @@ body {
 	font-weight: bold;
 	box-shadow: 0px 3px 3px #aaa;
 
+  background-color: #bbb; /* delete me */
 }
 
 .secHalf-body > p:only-of-type {
@@ -221,15 +222,27 @@ input:focus {
 
 /* If screen is wider than 700px then use desktop */
 
+
 @media only screen and (min-width: 700px) {
 	.wholeBox{
 		display: flex;
 		justify-content: center;
+		width: auto;
+		height: 100vh;
 	}
 
 	.firstHalf {
 		background: top left/200% url(https://images.unsplash.com/photo-1485841938031-1bf81239b815?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1930&q=80);
+		height: inherit;
+		width: min(45.5rem,35vw);
+	}
 
+	.firstHalf-overlayBox {
+	}
+
+	.secHalf {
+		/* width: min(91rem,65vw); */
+		/* height: inherit; */
 	}
 }
 
