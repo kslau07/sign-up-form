@@ -26,7 +26,7 @@
 
 :root {	font-size: 62.5%; }
 
-body { font-size: 1.6rem; }
+body { font-size: 2rem; }
 
 input, label, button, select, textarea {
 	appearance: none;
@@ -35,9 +35,20 @@ input, label, button, select, textarea {
 	box-sizing: border-box;
 }
 
+input:focus, textarea:focus {
+	outline: none;
+}
+
 ul {
 	list-style-type: none;
 	padding: 0;
+}
+
+/* my reset */
+body {
+	letter-spacing: 0.07rem;
+	line-height: 2.5rem;
+
 }
 
 /* css variables */
@@ -103,48 +114,67 @@ ul {
 .firstHalf-creditBox :is(a:link, a:visited, a:hover, a:active) { color:#fff; }
 
 .secHalf {
-	background-color: hsla(0, 0%, 90%, 1.00);
+	background-color: hsla(0, 0%, 97%, 1.00);
 }
 
 .secHalf-header {
-	padding: 2rem 6rem 4rem var(--secHalf-LeftPad);
+	padding: 4rem 6rem 4rem var(--secHalf-LeftPad);
 	font-weight: bold;
-	letter-spacing: 0.07rem;
-	line-height: 1.9rem;
 }
 
 .secHalf-header > p:nth-of-type(1) {}
-.secHalf-header > p:nth-of-type(2) { margin-bottom: 2rem; }
-.secHalf-header > p:nth-of-type(3) {}
+.secHalf-header > p:nth-of-type(2) { margin-bottom: 2.5rem; }
+.secHalf-header > p:nth-of-type(3) { margin-bottom: 3rem; }
 
 .secHalf-body {
 	padding: var(--secHalf-LeftPad);
 	background-color: white;
 	font-weight: bold;
+	box-shadow: 0px 3px 3px #aaa;
 
 }
 
+.secHalf-body > p:only-of-type {
+	margin-bottom: 2rem;
+}
+
+
 /* Field style */
+
+.secHalf-fieldsBox {
+	
+	background-color: #fff; /* delete me */
+}
 
 label,
 input {
 	display: block;
-	width: 85%;
+	width: 70%;
+
 }
 
 label {
-	margin-bottom: 1rem;
+	font-weight: normal;
+	font-size: 1.35rem;
+	margin-bottom: 1.5rem;
 }
 
 input {
-	border: 2px solid #ccc;
+	border: 1px solid #bbb;
+	font-size: 1.6rem;
 	border-radius: 5px;
-
+	margin-top: 0.3rem;
+	padding: 0.45rem 0.95rem;
 }
 
-.secHalf-fieldsBox {
-	
-	background-color: #ddd; /* delete me */
+input:focus {
+	box-shadow: 2px 2px 4px #bbb;
+	border: 1px solid hsla(240, 55%, 50%, 1.00);
+	/* outline: hsla(240, 75%, 50%, 1.00); */
+}
+
+.secHalf-rightFields li:last-of-type > label:last-of-type {
+	margin-bottom: 1rem;
 }
 
 .secHalf-leftFields {}
@@ -152,6 +182,40 @@ input {
 .secHalf-rightFields {}
 
 .secHalf-footer {
+	padding-top: 3rem;
+	padding-left: var(--secHalf-LeftPad);
+	padding-bottom: 5rem;
+}
+
+.btnSubmit {
+	padding: 0.95rem 6.1rem;
+	margin-bottom: 3rem;
+	font-size: 1.6rem;
+	font-weight: bold;
+	border-radius: 5px;
+	border: 0;
+
+	background-color: hsla(140, 45%, 30%, 1.00);
+	color: white;
+	cursor: pointer;
+	box-shadow: 3px 3px 3px #ccc;
+}
+
+.btnSubmit:hover {
+	background-color: hsla(140, 65%, 50%, 1.00);
+}
+
+.btnSubmit:active {
+	background-color: hsla(140, 45%, 20%, 1.00);
+}
+
+.secHalf-footer > p:last-of-type { 
+	font-weight: bold;
+}
+
+.secHalf-footer > p:last-of-type :is(a:link, a:visited, a:hover, a:active){
+	text-decoration: none;
+	color: hsla(140, 25%, 30%, 1.00);
 
 }
 
