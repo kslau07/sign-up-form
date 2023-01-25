@@ -1,7 +1,8 @@
 /* 
 
-	Make fields single column by default, expand to 2 columns with media query.
+	max width of ?
 	
+
 	Make text wrap "upwards", it should not invade space for text fields.
 
 	Use flex row wrap + flex 1 for fields
@@ -55,7 +56,7 @@ body {
 :root {
 	--fullHeight: 98vh;
 	--fullWidth: 98vw;
-	--secHalf-LeftPad: 2.3rem;
+	--secHalf-LeftPad: 4rem;
 	display: flex;
 	justify-content: center;
 	background-color: #444;
@@ -118,7 +119,7 @@ body {
 }
 
 .secHalf-header {
-	padding: 4rem 6rem 4rem var(--secHalf-LeftPad);
+	padding: 4rem 8rem 4rem var(--secHalf-LeftPad);
 	font-weight: bold;
 }
 
@@ -132,7 +133,7 @@ body {
 	font-weight: bold;
 	box-shadow: 0px 3px 3px #aaa;
 
-  background-color: #bbb; /* delete me */
+  background-color: #fff; /* delete me */
 }
 
 .secHalf-body > p:only-of-type {
@@ -143,28 +144,40 @@ body {
 /* Field style */
 
 .secHalf-fieldsBox {
-	
 	background-color: #fff; /* delete me */
+	display: flex;
+	flex-flow: row wrap;
+	gap: 2.1rem 65px;
 }
 
-label,
-input {
-	display: block;
-	width: 70%;
+li {
+	display: flex;
+	/* flex-direction: row; */
+	flex-flow: row wrap;
+	flex-basis: 30rem;
+	/* flex: 1 1 30rem; */
+}
 
+.secHalf-fieldsBox :where(label, input) {
+	/* flex: 1 1 30rem; */
+	flex-basis: 30rem;
+	background-color: #fff;
 }
 
 label {
+	/* display: block; */
+	/* width: ; */
 	font-weight: normal;
 	font-size: 1.35rem;
-	margin-bottom: 1.5rem;
+	margin-bottom: 0.1rem;
 }
 
 input {
+	/* display: block; */
+	width: 75%;
 	border: 1px solid #bbb;
 	font-size: 1.6rem;
 	border-radius: 5px;
-	margin-top: 0.3rem;
 	padding: 0.45rem 0.95rem;
 }
 
@@ -173,14 +186,6 @@ input:focus {
 	border: 1px solid hsla(240, 55%, 50%, 1.00);
 	/* outline: hsla(240, 75%, 50%, 1.00); */
 }
-
-.secHalf-rightFields li:last-of-type > label:last-of-type {
-	margin-bottom: 1rem;
-}
-
-.secHalf-leftFields {}
-
-.secHalf-rightFields {}
 
 .secHalf-footer {
 	padding-top: 3rem;

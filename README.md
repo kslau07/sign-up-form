@@ -36,7 +36,7 @@ We've learned a lot of CSS lately and I will use this project to practice some o
 	* `min()`, `max()`, `clamp()`, `calc()`
 - Use of a CSS reset sheet
 - Use of more CSS units:
-	* `em`, `ex`, `rem`, `ch`, `px`, `%`, `vw`, `vh`
+	* `em`, `ex`, `rem`, `ch`, `px`, `%`, `vw`, `vh`, `vmin`, `vmax`
 - Use of different color functions:
 	* `rgba()` and `hsla()`
 - Use of advanced CSS selectors:
