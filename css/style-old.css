@@ -1,20 +1,5 @@
 /* 
-
-
-	Problem: 
-	+ Neither left nor right side touch bottom of browser when browser is maximized
-	When: 
-	+ Maximize browser
-	Solutions: 
-	+ See if flex-grow works
-
-	Make text wrap "upwards", it should not invade space for text fields.
-
-	Use flex row wrap + flex 1 for fields
-
-	Skim maintainable CSS to get a better idea of how to organize your CSS
-	https://maintainablecss.com/chapters/semantics/
-	
+		Old css stylesheet, delete me
 */
 
 /* my reset, copy, then delete me */
@@ -66,7 +51,7 @@ body {
 /* css variables */
 :root {
 	/* --fullHeight: 98vh; */
-	--secHalf-LeftPad: 4rem;
+	--rightSide-LeftPad: 4rem;
 	display: flex;
 	justify-content: center;
 	background-color: #222;
@@ -81,7 +66,7 @@ body {
 
 }
 
-.firstHalf {
+.leftSide {
 	position: relative;
 	display: flex;
 	flex-direction: column;
@@ -92,7 +77,7 @@ body {
 
 }
 
-.firstHalf-overlayBox {
+.leftSide-overlayBox {
 	position: relative;
 	color: #fff;
 	display: flex;
@@ -105,45 +90,45 @@ body {
 	background-color: hsla(240, 30%, 30%, 0.15);
 }
 
-.firstHalf-logoImage {
+.leftSide-logoImage {
 	height: 85%;
 	margin-right: 1.5rem;
 }
 
-.firstHalf-brand {
+.leftSide-brand {
 	font-family: "Permanent Marker";
 	letter-spacing: 0.1em;
 	font-size: 5rem;
 }
 
-.firstHalf-brand::first-letter {
+.leftSide-brand::first-letter {
 	color: hsla(170, 95%, 70%, 1.00);
 }
 
-.firstHalf-creditBox {
+.leftSide-creditBox {
 	font-size: 1.2rem;
 	color: black;
 	position: absolute;
 	bottom: 0.25rem;
 }
 
-.firstHalf-creditBox :is(a:link, a:visited, a:hover, a:active) { color:#fff; }
+.leftSide-creditBox :is(a:link, a:visited, a:hover, a:active) { color:#fff; }
 
-.secHalf {
+.rightSide {
 	background-color: hsla(0, 0%, 97%, 1.00);
 }
 
-.secHalf-header {
-	padding: 4rem 8rem 4rem var(--secHalf-LeftPad);
+.rightSide-header {
+	padding: 4rem 8rem 4rem var(--rightSide-LeftPad);
 	font-weight: bold;
 }
 
-.secHalf-header > p:nth-of-type(1) {}
-.secHalf-header > p:nth-of-type(2) { margin-bottom: 2.5rem; }
-.secHalf-header > p:nth-of-type(3) { margin-bottom: 3rem; }
+.rightSide-header > p:nth-of-type(1) {}
+.rightSide-header > p:nth-of-type(2) { margin-bottom: 2.5rem; }
+.rightSide-header > p:nth-of-type(3) { margin-bottom: 3rem; }
 
-.secHalf-body {
-	padding: var(--secHalf-LeftPad);
+.rightSide-body {
+	padding: var(--rightSide-LeftPad);
 	background-color: white;
 	font-weight: bold;
 	box-shadow: 0px 3px 3px #aaa;
@@ -151,14 +136,14 @@ body {
   background-color: #fff; /* delete me */
 }
 
-.secHalf-body > p:only-of-type {
+.rightSide-body > p:only-of-type {
 	margin-bottom: 2rem;
 }
 
 
 /* Field style */
 
-.secHalf-fieldsBox {
+.rightSide-fieldsBox {
 	background-color: #fff; /* delete me */
 	display: flex;
 	flex-flow: row wrap;
@@ -171,7 +156,7 @@ li {
 	flex-basis: 25rem;
 }
 
-.secHalf-fieldsBox :where(label, input) {
+.rightSide-fieldsBox :where(label, input) {
 	background-color: #fff;
 	flex-basis: 26rem;
 }
@@ -196,9 +181,9 @@ input:focus {
 	/* outline: hsla(240, 75%, 50%, 1.00); */
 }
 
-.secHalf-footer {
+.rightSide-footer {
 	padding-top: 3rem;
-	padding-left: var(--secHalf-LeftPad);
+	padding-left: var(--rightSide-LeftPad);
 	padding-bottom: 5rem;
 }
 
@@ -228,11 +213,11 @@ input:focus {
 	background-color: hsla(170, 55%, 30%, 1.00);
 }
 
-.secHalf-footer > p:last-of-type { 
+.rightSide-footer > p:last-of-type { 
 	font-weight: bold;
 }
 
-.secHalf-footer > p:last-of-type :is(a:link, a:visited, a:hover, a:active){
+.rightSide-footer > p:last-of-type :is(a:link, a:visited, a:hover, a:active){
 	text-decoration: none;
 	color: hsla(140, 25%, 30%, 1.00);
 
@@ -256,28 +241,28 @@ input:focus {
 
 	}
 
-	.firstHalf {
+	.leftSide {
 		background: none;
 		justify-content: start;
 		flex: 1 1 34rem; /* do not comment-out */
 	}
 
-	.firstHalf-overlayBox {
+	.leftSide-overlayBox {
 		height: min(13vw, 17rem);
 		width: 100%;
 		top: calc(199px - 1.5vw);
 	}
 
-	.firstHalf-logoImage {
+	.leftSide-logoImage {
 		height: min(6vw, 8rem);
 		margin-right: 1.5rem;
 	}
 
-	.firstHalf-brand {
+	.leftSide-brand {
 		font-size: min(5vw, 7rem);
 	}
 	
-	.secHalf {
+	.rightSide {
 		flex: 1 1 66rem; /* do not comment-out */
 
 		display: flex;
@@ -287,17 +272,17 @@ input:focus {
 
 	}
 
-	.secHalf-header {
+	.rightSide-header {
 		padding-top: 15rem;
 
 		/* flex: 1 0 auto; */
 	}
 
-	.secHalf-body {
+	.rightSide-body {
 		/* flex: 1 0 auto; */
 	}
 
-	.secHalf-footer {
+	.rightSide-footer {
 		flex: 1 1 auto;
 	}
 }
@@ -307,7 +292,7 @@ input:focus {
 		flex: 1 1 20rem;
 	}
 	
-	.secHalf-fieldsBox :where(label, input) {
+	.rightSide-fieldsBox :where(label, input) {
 		flex: 1 1 25rem;
 	}
 }
@@ -317,7 +302,7 @@ input:focus {
 		flex: 0 0 25rem;
 	}
 	
-	.secHalf-fieldsBox :where(label, input) {
+	.rightSide-fieldsBox :where(label, input) {
 		flex: 0 0 26rem;
 	}
 }
