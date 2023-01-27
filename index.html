@@ -2,6 +2,36 @@
 		https://cdn.statically.io/gh/TheOdinProject/curriculum/5f37d43908ef92499e95a9b90fc3cc291a95014c/html_css/project-sign-up-form/sign-up-form.png
 
 		https://www.theodinproject.com/lessons/intermediate-html-and-css-sign-up-form
+
+		confirm password with js
+
+		make both password fields invalid if no match
+		make both password fields valid if match
+		be more succinct, use flex-grow instead of flex on html/body
+
+		try to do it in real time, add event listener to input field keyboard input
+
+		add placeholders
+
+		add mask (disappearing placeholder)
+
+		add asterisks when user inputs password
+
+		add eyeball to reveal password
+
+		add popup tooltip if user gets stuck?
+		or use "are you eleven?"
+		
+		add back "required" attr to inputs
+
+		add woff2 fonts
+
+		phone	number, show placeholder + frame like (   ) -      - 
+
+		add meter for password strength with tick marks
+
+		Skim maintainable CSS to get a better idea of how to organize your CSS
+		https://maintainablecss.com/chapters/semantics/
 -->
 
 <!DOCTYPE html>
@@ -17,8 +47,6 @@
 	<body>
 		
 		<div class="leftSide">
-
-
 			<div class="leftSide-overlayBox">
 				<img src="images/logo.svg" alt="A logo of a globe" class="leftSide-logoImage">
 				<span class="leftSide-brand">LOGO</span>
@@ -35,40 +63,90 @@
 			</div>
 			<div class="rightSide-body">
 				<p>Ready? Let's do this!</p>
-				<ul class="rightSide-fieldsBox">
-					<li>
-						<label for="firstname">First name</label>
-						<input type="text" name="firstname" id="firstname" required>
-					</li>
-					<li>
-						<label for="lastname">Last name</label>
-						<input type="text" name="lastname" id="lastname" required>
-					</li>
-					<li>
-						<label for="email">Email</label>
-						<input type="email" name="email" id="email" required>
-					</li>
-					<li>
-						<label for="phone">Phone number</label>
-						<input type="tel" name="phone" id="phone" required>
-					</li>
-					<li>
-						<label for="pwd">Password</label>
-						<input type="text" name="pwd" id="pwd" required>
-					</li>								
-					<li>
-						<label for="confirmpwd">Confirm password</label>
-						<input type="text" name="confirmpwd" id="confirmpwd" required>
-					</li>
-				</ul>
+				<form action="#" id="signup1">
+					<ul class="rightSide-fieldsBox">
+						<li>
+							<label for="firstname">First name</label>
+							<input type="text" name="firstname" id="firstname">
+						</li>
+						<li>
+							<label for="lastname">Last name</label>
+							<input type="text" name="lastname" id="lastname">
+						</li>
+						<li>
+							<label for="email">Email<span aria-label="required">*</span></label>
+							<input type="text"
+										 name="email"
+										 id="email"
+										 pattern="\w+@\w+\.\w+"
+										 title="example: john@company.com"
+										 >
+										 <!-- required -->
+						</li>
+						<li>
+							<label for="phone">Phone number<span aria-label="required">*</span></label>
+							<input type="text"
+										 name="phone"
+										 id="phone"
+										 pattern=".?(\d{3}).*(\d{3}).*(\d{4})"
+										 title="example: (341)-255-2770"
+										 >
+										 <!-- required -->
+						</li>
+						<li>
+							<label for="password1">Password<span aria-label="required">*</span></label>
+							<input type="text"
+										 name="password1"
+										 id="password1"
+										 class="error"
+										 pattern="(?=(.*[0-9]))(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*[\W]))^.{8,}$"
+										 title="Password must be at least 8 characters and contain one of each of the following:
+										  a number, a symbol, a lower and an uppercase letter"
+										 >
+
+										 <!-- (?=(.*[0-9]))(?=(.*[A-Z]))(?=(.*[\W]))^.{8,}$ -->
+										 <!-- my regexp: 1 number, 1 lower, 1 upper, 1 symbol -->
+
+										 <!-- (?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,}$ -->
+										 <!-- Should have 1 lowercase letter, 1 uppercase letter, 1 number, and be at least 8 characters long -->
+										 
+										 <!-- (?=^.{8,}$) -->
+										 <!-- required --> 
+										 <!-- (?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$ -->
+						</li>
+						<li>
+							<label for="password2">Confirm password<span aria-label="required">*</span></label>
+							<input type="text" name="password2" id="password2" class="error">
+							<!-- required -->
+						</li>
+					</ul>
+				</form>
 			</div>
 			<div class="rightSide-footer">
-				<div><button type="submit" class="btnSubmit">Create Account</button></div>
-				<p>
-					Already have an account?
-					<a href="">Log in</a>
-				</p>
+				<div><button class="btnSubmit" form="signup1">Create Account</button></div>
+				<p>Already have an account?
+					<a href="#">Log in</a></p>
 			</div>
 		</div>
 	</body>
+
+	<script>
+
+		const pwdField1 = document.getElementById('password1')
+		const pwdField2 = document.getElementById('password2')
+
+
+		pwdField2.addEventListener("keyup", (e) => {
+			password1Str = pwdField1.value
+			password2Str = pwdField2.value
+
+
+			if ( password2Str != password1Str ) {
+				// alert( `${password2Str} versus ${password1Str}`  )
+			}
+			// alert( user_input );
+		});
+
+		
+	</script>
 </html>
