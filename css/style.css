@@ -1,20 +1,7 @@
 /* delete me */
-.testcontainer {
-	position: relative;
-}
-
-.test1 {
-	position: absolute;
-	font-size: 3rem;
-	color: white;
-}
-
-.test2 {
-	position: absolute;
-	font-size: 3rem;
-	color: white;
-	top: 50px;
-}
+.testContainer {position: relative;font-size: 3rem; }
+.testContainer > * {position: absolute;color: white; background-color: #007; width: max-content;}
+.test2 {top: 50px;}
 /* delete me above */
 
 /* my reset, copy, then delete me */

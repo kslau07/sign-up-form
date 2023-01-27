@@ -10,6 +10,20 @@
 		confirm password with js
 		how?
 
+		mark fields invalid with custom validator
+
+		add x and checkmark to invalid, valid fields
+		content: '✖';
+		content: "✔";
+
+		when we press submit, check each field, mark the invalid fields
+
+		when user starts typing in password, wait 3 seconds, then help with rules
+		-or-
+		show password meter - implement something like this with emojis:
+		https://dribbble.com/shots/4467712-Password-Strength-Meter
+		we have to give password fields more space underneath
+
 		(red border) if confirm fails
 		make both password fields valid if match (green border)
 
@@ -192,25 +206,20 @@
 			};
 		});
 
-
 		// Visibility button
 		const btnPasswordToggle = document.querySelector('.pwdToggle')
 
 		btnPasswordToggle.addEventListener('click', (e) => {
-
 			const eyeSlash = document.querySelector('.eyeSlash')
 			const eye = document.querySelector('.eye')
 
 			if (window.getComputedStyle(eye).visibility == 'hidden') {
 				eyeSlash.style.visibility = 'hidden';
 				eye.style.visibility = 'visible';				
-
-				
 				pwdInitialField.type = 'text'   //show password
 			} else {
 				eyeSlash.style.visibility = 'visible';
 				eye.style.visibility = 'hidden';
-
 				pwdInitialField.type = 'password'   //hide
 			};
 		});
