@@ -3,32 +3,38 @@
 
 		https://www.theodinproject.com/lessons/intermediate-html-and-css-sign-up-form
 
+		to do:
+
+		add hide/show for confirm field too
+
 		confirm password with js
+		how?
 
-		make both password fields invalid if no match
-		make both password fields valid if match
-		be more succinct, use flex-grow instead of flex on html/body
-
-		try to do it in real time, add event listener to input field keyboard input
-
-		add placeholders
-
-		add mask (disappearing placeholder)
-
-		add asterisks when user inputs password
-
-		add eyeball to reveal password
-
-		add popup tooltip if user gets stuck?
-		or use "are you eleven?"
-		
-		add back "required" attr to inputs
-
-		add woff2 fonts
-
-		phone	number, show placeholder + frame like (   ) -      - 
+		(red border) if confirm fails
+		make both password fields valid if match (green border)
 
 		add meter for password strength with tick marks
+
+		when user is confirming password, match each character as they go
+		use a loop
+		only make confirm field invalid if character mismatch
+
+		- add placeholders
+		- add mask (disappearing placeholder)
+		- add popup tooltip if user gets stuck?
+		- or use "are you eleven?"
+		- add green check + green border for confirmed
+
+		"are you eleven?" - twitter uses: "what's your name?" under field, small red font
+
+		Not password related:
+		- add back "required" attr to inputs
+		- add woff2 fonts
+		- phone	number, show placeholder + frame like (   ) -      - 
+
+		black and red leaves:
+		https://unsplash.com/photos/JtAfZxiwFmg
+
 
 		Skim maintainable CSS to get a better idea of how to organize your CSS
 		https://maintainablecss.com/chapters/semantics/
@@ -41,10 +47,17 @@
 		<title>Odin Sign-Up Form</title>
 		<link rel="stylesheet" href="css/style.css">
 		<script src="js/script.js" defer></script>
-		<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css2?family=Oxygen&display=swap" rel="stylesheet">
 	</head>
 	<body>
+
+		<!-- delete me -->
+		<div class="testContainer">
+			<p class="test1">delete me</p>
+			<p class="test2">delete me</p>
+		</div>
+
 		
 		<div class="leftSide">
 			<div class="leftSide-overlayBox">
@@ -52,7 +65,7 @@
 				<span class="leftSide-brand">LOGO</span>
 			</div>
 			<div class="leftSide-creditBox">
-				Photo by <a href="https://unsplash.com/@giang7">Gianluca Giarda</a> on <a href="https://unsplash.com/photos/jiJg0trz8vE">Unsplash</a>
+				Photo by <a href="https://unsplash.com/@valentinsalja">Valentin Salja</a> on <a href="https://unsplash.com/photos/JtAfZxiwFmg">Unsplash</a>
 			</div>
 		</div>
 		<div class="rightSide">
@@ -94,10 +107,18 @@
 										 <!-- required -->
 						</li>
 						<li>
-							<label for="password1">Password<span aria-label="required">*</span></label>
-							<input type="text"
-										 name="password1"
-										 id="password1"
+							
+							<div class="pwdWidgetContainer">
+								<span class="eye"></span>
+								<span class="eyeSlash"></span>
+								<button class="pwdToggle" type="button"></button>
+								<span class="pwdHelp"></span>
+							</div>
+
+							<label for="pwdInitial">Password<span aria-label="required">*</span></label>
+							<input type="password"
+										 name="pwdInitial"
+										 id="pwdInitial"
 										 class="error"
 										 pattern="(?=(.*[0-9]))(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*[\W]))^.{8,}$"
 										 title="Password must be at least 8 characters and contain one of each of the following:
@@ -113,10 +134,14 @@
 										 <!-- (?=^.{8,}$) -->
 										 <!-- required --> 
 										 <!-- (?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$ -->
+							
 						</li>
 						<li>
-							<label for="password2">Confirm password<span aria-label="required">*</span></label>
-							<input type="text" name="password2" id="password2" class="error">
+							<div class="pwdConfirmWidgetContainer">
+								<span class="pwdConfirmHelp"></span>
+							</div>
+							<label for="pwdConfirm">Confirm password<span aria-label="required">*</span></label>
+							<input type="password" name="pwdConfirm" id="pwdConfirm" class="error">
 							<!-- required -->
 						</li>
 					</ul>
@@ -131,22 +156,64 @@
 	</body>
 
 	<script>
+		'use strict';
 
-		const pwdField1 = document.getElementById('password1')
-		const pwdField2 = document.getElementById('password2')
+		// delete me
+		const test1 = document.querySelector('.test1');
+		const test2 = document.querySelector('.test2');
 
+		// confirm password
+		const pwdInitialField = document.getElementById('pwdInitial')
+		const pwdConfirmField = document.getElementById('pwdConfirm')
+		const pwdConfirmHelpSpan = document.querySelector('.pwdConfirmHelp');
+		const errorFields = document.querySelectorAll('.error');
 
-		pwdField2.addEventListener("keyup", (e) => {
-			password1Str = pwdField1.value
-			password2Str = pwdField2.value
+		pwdConfirmField.addEventListener('keyup', (e) => {
+			const pwdInitialStr = pwdInitialField.value
+			const pwdConfirmStr = pwdConfirmField.value
+			const confirmLength = pwdConfirmStr.length
+			const initialSubStr = pwdInitialStr.slice(0, confirmLength)
 
+			if ( pwdConfirmStr != initialSubStr ) {
+				// alert(pwdConfirmStr.length)
+				pwdConfirmHelpSpan.textContent = 'Passwords do not match.';
+				pwdConfirmHelpSpan.style.color = 'red';
+				errorFields.forEach((elem) => {elem.style.outline = '2px solid red';});
 
-			if ( password2Str != password1Str ) {
-				// alert( `${password2Str} versus ${password1Str}`  )
+			} else if ( pwdConfirmStr == pwdInitialStr ) {
+				pwdConfirmHelpSpan.textContent = 'Passwords match!';
+				pwdConfirmHelpSpan.style.color = 'green';
 			}
-			// alert( user_input );
+
+			if (pwdConfirmStr == '') {
+				// remove help if field empty
+				pwdConfirmHelpSpan.textContent = '';
+				errorFields.forEach((elem) => {elem.style.outline = '';});
+			};
 		});
 
-		
+
+		// Visibility button
+		const btnPasswordToggle = document.querySelector('.pwdToggle')
+
+		btnPasswordToggle.addEventListener('click', (e) => {
+
+			const eyeSlash = document.querySelector('.eyeSlash')
+			const eye = document.querySelector('.eye')
+
+			if (window.getComputedStyle(eye).visibility == 'hidden') {
+				eyeSlash.style.visibility = 'hidden';
+				eye.style.visibility = 'visible';				
+
+				
+				pwdInitialField.type = 'text'   //show password
+			} else {
+				eyeSlash.style.visibility = 'visible';
+				eye.style.visibility = 'hidden';
+
+				pwdInitialField.type = 'password'   //hide
+			};
+		});
+
 	</script>
 </html>
