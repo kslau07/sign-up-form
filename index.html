@@ -118,7 +118,7 @@
 										 pattern=".?(\d{3}).*(\d{3}).*(\d{4})"
 										 title="example: (341)-255-2770"
 										 >
-										 <!-- required -->
+										 <!-- required -->  
 						</li>
 						<li>
 							
@@ -152,6 +152,9 @@
 						</li>
 						<li>
 							<div class="pwdConfirmWidgetContainer">
+								<span class="eye"></span>
+								<span class="eyeSlash"></span>
+								<button class="pwdToggle" type="button"></button>
 								<span class="pwdConfirmHelp"></span>
 							</div>
 							<label for="pwdConfirm">Confirm password<span aria-label="required">*</span></label>
@@ -193,7 +196,6 @@
 				pwdConfirmHelpSpan.textContent = 'Passwords do not match.';
 				pwdConfirmHelpSpan.style.color = 'red';
 				errorFields.forEach((elem) => {elem.style.outline = '2px solid red';});
-
 			} else if ( pwdConfirmStr == pwdInitialStr ) {
 				pwdConfirmHelpSpan.textContent = 'Passwords match!';
 				pwdConfirmHelpSpan.style.color = 'green';
@@ -206,23 +208,26 @@
 			};
 		});
 
-		// Visibility button
-		const btnPasswordToggle = document.querySelector('.pwdToggle')
+		// Visibility buttons
+		const pwdToggleBtnNodeList = document.querySelectorAll('.pwdToggle')
+		pwdToggleBtnNodeList.forEach(elem => {elem.addEventListener('click', pwdToggleVisibility)});
 
-		btnPasswordToggle.addEventListener('click', (e) => {
-			const eyeSlash = document.querySelector('.eyeSlash')
-			const eye = document.querySelector('.eye')
+		function pwdToggleVisibility() {
+			const eyeSlashNodeList = document.querySelectorAll('.eyeSlash')
+			const eyeNodeList = document.querySelectorAll('.eye')
+			const leftEye = document.querySelector('.eye')
 
-			if (window.getComputedStyle(eye).visibility == 'hidden') {
-				eyeSlash.style.visibility = 'hidden';
-				eye.style.visibility = 'visible';				
-				pwdInitialField.type = 'text'   //show password
+			if (window.getComputedStyle(leftEye).visibility == 'hidden') {
+				eyeSlashNodeList.forEach(eyeSlash => {eyeSlash.style.visibility = 'hidden';});
+				eyeNodeList.forEach(eye => {eye.style.visibility = 'visible';});
+				pwdInitialField.type = 'text'
+				pwdConfirmField.type = 'text'
 			} else {
-				eyeSlash.style.visibility = 'visible';
-				eye.style.visibility = 'hidden';
-				pwdInitialField.type = 'password'   //hide
+				eyeSlashNodeList.forEach(eyeSlash => {eyeSlash.style.visibility = 'visible';});
+				eyeNodeList.forEach(eye => {eye.style.visibility = 'hidden';});
+				pwdInitialField.type = 'password'
+				pwdConfirmField.type = 'password'
 			};
-		});
-
+		};
 	</script>
 </html>

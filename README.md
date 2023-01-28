@@ -15,7 +15,7 @@ Create a simple sign-up page that has the contains the following fields:
 
 It should also display a large picture on the left-hand side with a logo overlaid.
 
-> The design should approximately look like this:
+> The design should look approximately like this:
 [Page layout](https://cdn.statically.io/gh/TheOdinProject/curriculum/5f37d43908ef92499e95a9b90fc3cc291a95014c/html_css/project-sign-up-form/sign-up-form.png)
 
 ## My Goals 
@@ -43,8 +43,8 @@ We've learned a lot of CSS lately and I will use this project to practice some o
 	* `:first-child`, `:first-of-type`, `:nth-of-type`, etc.
 	* other pseudo-classes and pseudo-elements
 - Use of functions for responsive typography
-- Letter spacing (on logo)
-- Use of an online font
+- Letter spacing (on logo, text content)
+- Load custom font (woff, woff2)
 - Use of the Emmet plug-in to speed up coding
 - A custom SVG image
 - Animating widgets (the button, etc.)

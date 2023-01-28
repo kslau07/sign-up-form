@@ -221,7 +221,8 @@ label:has(+ input:invalid)::before {
 	position: relative;
 }
 
-input[id="pwdInitial"] {
+input[id="pwdInitial"],
+input[id="pwdConfirm"] {
 	padding-left: 33px;
 }
 
@@ -231,7 +232,7 @@ span.eyeSlash {
 	position: absolute;
 	top: 31px;
 	left: 9px;
-	content: url("/images/eye-slash.svg");
+	content: url("images/eye-slash.svg");
 
 	/* visibility: hidden; */
 	
@@ -242,7 +243,7 @@ span.eye {
 	position: absolute;
 	top: 31px;
 	left: 9px;
-	content: url("/images/eye.svg");
+	content: url("images/eye.svg");
 
 	visibility: hidden;
 }
