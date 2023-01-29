@@ -35,11 +35,11 @@ function updatePwdMeter() {
 
 	const pwdInitialField = document.getElementById('pwdInitial');
 	const inputStr = pwdInitialField.value;
-	const noSpaceHelp = document.querySelector('.noSpacesHelp');
-	noSpaceHelp.textContent = '';
+	const noSpcHelp = document.querySelector('.noSpacesHelp');
+	noSpcHelp.textContent = '';
 
 	if (/\s/.test(inputStr)) {
-		noSpaceHelp.textContent = 'No spaces allowed.';
+		noSpcHelp.textContent = 'No spaces allowed.';
 		meter.value = 0;
 	} else if (inputStr.length == 0) {
 		 meter.value = 0;
@@ -47,8 +47,18 @@ function updatePwdMeter() {
 		 meter.value = 2;
 	};
 
+
 	return meter.value;
 }
+
+function updatePwdValidity(meterValue) {
+	const pwdInitialField = document.getElementById('pwdInitial');
+
+	if (meterValue == 0) pwdInitialField.setCustomValidity('')
+	
+	meterValue < 5 ? pwdInitialField.setCustomValidity('Invalid password.') : pwdInitialField.setCustomValidity('');
+
+};
 
 function numOfPatternMatches() {
 	const pwdInitialField = document.getElementById('pwdInitial');
@@ -68,7 +78,6 @@ function numOfPatternMatches() {
 			return accumulator
 		}, initValue
 	);
-
 	return numOfMatches
 }
 
@@ -153,8 +162,9 @@ function listenForEvents() {
 	
 	const pwdInitialField = document.getElementById('pwdInitial');
 	pwdInitialField.addEventListener('keyup', (e) => {
-		const meterValue = updatePwdMeter()
-		updateEmoji(meterValue)
+		const meterValue = updatePwdMeter();
+		updatePwdValidity(meterValue);
+		updateEmoji(meterValue);
 	});
 	
 	const pwdToggleBtnNodeList = document.querySelectorAll('.pwdToggle')

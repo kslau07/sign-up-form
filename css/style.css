@@ -199,8 +199,19 @@ body {
 /* Individual field style */
 
 input:invalid {
-	/* border: 2px solid red; */
 	outline: 2px solid red;
+}
+
+label:has(+ input:invalid)::before {
+	position: absolute;
+	top: 29px;
+	left: -17px;
+	content: "✖";
+	color: red;
+}
+
+input:required {
+	/* outline: 1px solid green; */
 }
 
 li {
@@ -208,13 +219,6 @@ li {
 }
 
 
-label:has(+ input:invalid)::before {
-	position: absolute;
-	top: 29px;
-	left: -17px;
-	content: "X";
-	color: red;
-}
 
 /* Password field */
 
@@ -224,10 +228,6 @@ label:has(+ input:invalid)::before {
 	display: flex;
 	flex-direction: row;
 	font-weight: normal;
-	
-	
-	/* delete me */
-	/* outline: 1px solid green; */
 }
 
 input[id="pwdInitial"],
@@ -235,7 +235,6 @@ input[id="pwdConfirm"] {
 	padding-left: 33px;
 }
 
-/* <span class="pwdHelp"></span> */
 .noSpacesHelp {
 	position: absolute;
 	top: 60px;

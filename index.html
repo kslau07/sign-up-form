@@ -5,33 +5,13 @@
 
 		to do:
 
-		help: if pwd contains space
-
-		password cannot contain regexp space character \s
-
-		meter:
-		remove from docflow, add back in for max700 only
-
-		figure out how to use portrait mode, maybe don't use it
-		it will not play nice with the meter
-
-		use js to change <meter>, according to "password strength"
-		password strength will be determined by number of individual regexp patterns matched
-		which ones?
-			1 lowercase
-			1 uppercase
-			1 number
-			1 symbol
-			If they have all 4, then it's a strong password
-			If they have 3 then it's fair
-			If they have 2 then it's poor -OR- if they have less than 8 chars
+		html pattern match is not the same as your js requirement
+		add custom validator and remove html pattern match
 
 		from stack:
 		https://stackoverflow.com/questions/10777970/can-i-mark-a-field-invalid-from-javascript
 		field.setCustomValidity("Invalid field."); will make the field invalid.
 		field.setCustomValidity(""); will make the field valid unless it fails an HTML5 constraint.
-
-
 
 		mark fields invalid with custom validator
 
@@ -131,6 +111,7 @@
 										 id="email"
 										 pattern="\w+@\w+\.\w+"
 										 title="example: john@company.com"
+										 required
 										 >
 										 <!-- required -->
 						</li>
@@ -141,6 +122,7 @@
 										 id="phone"
 										 pattern=".?(\d{3}).*(\d{3}).*(\d{4})"
 										 title="example: (341)-255-2770"
+										 required
 										 >
 										 <!-- required -->  
 						</li>
@@ -166,10 +148,12 @@
 										 name="pwdInitial"
 										 id="pwdInitial"
 										 class="error"
-										 pattern="(?=(.*[0-9]))(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*[\W]))^.{8,}$"
 										 title="Password must be at least 8 characters and contain one of each of the following:
 										  a number, a symbol, a lower and an uppercase letter"
+											required
 										 >
+										 <!-- pattern="(?=(.*[0-9]))(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*[\W|_]))^.{8,}$"
+ -->
 						</li>
 						<li>
 							<div class="pwdConfirmWidgetContainer">
@@ -179,7 +163,11 @@
 								<span class="pwdConfirmHelp"></span>
 							</div>
 							<label for="pwdConfirm">Confirm password<span aria-label="required">*</span></label>
-							<input type="password" name="pwdConfirm" id="pwdConfirm" class="error">
+							<input type="password"
+										 name="pwdConfirm"
+										 id="pwdConfirm"
+										 class="error"
+										 required>
 							<!-- required -->
 						</li>
 					</ul>
