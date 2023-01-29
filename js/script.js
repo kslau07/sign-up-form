@@ -14,33 +14,14 @@ testBtn.addEventListener('click', testElems);
 // Help message for space, value = 0
 
 function updatePwdMeter() {
-	const pwdInitialField = document.getElementById('pwdInitial');
-	const inputStr = pwdInitialField.value;
-	const meter = document.querySelector('meter');
-
-	if (/\s/.test(inputStr)) return meter.value = 0;
-	if (inputStr.length == 0) return meter.value = 0;
-	if (inputStr.length < 8) return meter.value = 2;
-
 	
-	const regexPatterns = [/^.{12,}$/, 
-											 /[0-9]/,
-											 /[a-z]/,
-											 /[A-Z]/,
-											 /[-!@#$%^&*()_+=<>?,./{}|;':"\[\]\\]/,
-	];
-
-	const initValue = 0
-	const totalMatches = regexPatterns.reduce(
-		(accumulator, pattern) => {
-			if (pattern.test(inputStr)) {
-				accumulator += 1
-			}
-			return accumulator
-		}, initValue
-	);
-
-	switch (totalMatches) {
+	const meter = document.querySelector('meter');
+	const numOfMatches = numOfPatternMatches()
+	
+	switch (numOfMatches) {
+		case 0:
+			meter.value = 0;
+			break;
 		case 1:
 			meter.value = 2;
 			break;
@@ -54,20 +35,67 @@ function updatePwdMeter() {
 			meter.value = 10;
 			break;
 	};
+
+
+	const pwdInitialField = document.getElementById('pwdInitial');
+	const inputStr = pwdInitialField.value;
+
+	if (/\s/.test(inputStr)) {
+		meter.value = 0;
+	} else if (inputStr.length == 0) {
+		 meter.value = 0;
+	} else if (inputStr.length < 8) {
+		 meter.value = 2;
+	};
+
+	return meter.value;
 }
 
-// test pattern match
-
-function matchPattern() {
+function numOfPatternMatches() {
 	const pwdInitialField = document.getElementById('pwdInitial');
+	const inputStr = pwdInitialField.value;
+	const regexPatterns = [/^.{12,}$/, 
+											 /[0-9]/,
+											 /[a-z]/,
+											 /[A-Z]/,
+											 /[-!@#$%^&*()_+=<>?,./{}|;':"\[\]\\]/,
+	];
 
-	const testPattern = /(?=^.{3,}$)/;
-	// const testPattern = /abc/;
-	
-	// test1.textContent = pwdInitialField.match(testPattern);
-	// test1.textContent = pwdInitialField.value.match(testPattern);
-	test1.textContent = testPattern.test(pwdInitialField.value);
-};
+	const initValue = 0
+	const numOfMatches = regexPatterns.reduce(
+		(accumulator, pattern) => {
+			if (pattern.test(inputStr)) {
+				accumulator += 1
+			}
+			return accumulator
+		}, initValue
+	);
+
+	return numOfMatches
+}
+
+function updateEmoji(meterValue) {
+	const emoji = document.querySelector('.emoji');
+
+	switch (meterValue) {
+		case 0:
+			emoji.textContent = '😐️';
+			break;
+		case 2:
+			emoji.textContent = '😐️';
+			break;
+		case 5:
+			emoji.textContent = '🤔️';
+			break;
+		case 8:
+			emoji.textContent = '😀️';
+			break;
+		case 10:
+			emoji.textContent = '😎️';
+			break;
+	};
+}
+
 
 function confirmPwd() {
 	const pwdInitialField = document.getElementById('pwdInitial');
@@ -83,7 +111,6 @@ function confirmPwd() {
 	const initialSubStr = pwdInitialStr.slice(0, confirmLength)
 
 	if ( pwdConfirmStr != initialSubStr ) {
-		// alert(pwdConfirmStr.length)
 		pwdConfirmHelpSpan.textContent = 'Passwords do not match.';
 		pwdConfirmHelpSpan.style.color = 'red';
 		errorFields.forEach((elem) => {elem.style.outline = '2px solid red';});
@@ -123,15 +150,21 @@ function pwdToggleVisibility() {
 	};
 };
 
-// get rid of global variables below, how?
+function listenForEvents() {
+	const pwdConfirmField = document.getElementById('pwdConfirm');
+	pwdConfirmField.addEventListener('keyup', confirmPwd);
+	
+	const pwdInitialField = document.getElementById('pwdInitial');
+	pwdInitialField.addEventListener('keyup', (e) => {
+		const meterValue = updatePwdMeter()
+		updateEmoji(meterValue)
 
-const pwdConfirmField = document.getElementById('pwdConfirm');
-pwdConfirmField.addEventListener('keyup', confirmPwd);
+	});
+	
+	const pwdToggleBtnNodeList = document.querySelectorAll('.pwdToggle')
+	pwdToggleBtnNodeList.forEach(elem => {
+		elem.addEventListener('click', pwdToggleVisibility)
+	});
+}
 
-const pwdInitialField = document.getElementById('pwdInitial');
-pwdInitialField.addEventListener('keyup', updatePwdMeter);
-
-const pwdToggleBtnNodeList = document.querySelectorAll('.pwdToggle')
-pwdToggleBtnNodeList.forEach(elem => {
-	elem.addEventListener('click', pwdToggleVisibility)
-});
+listenForEvents()
