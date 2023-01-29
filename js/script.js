@@ -11,10 +11,7 @@ function testElems() {
 const testBtn = document.querySelector('#testBtn');
 testBtn.addEventListener('click', testElems);
 
-// Help message for space, value = 0
-
 function updatePwdMeter() {
-	
 	const meter = document.querySelector('meter');
 	const numOfMatches = numOfPatternMatches()
 	
@@ -36,11 +33,13 @@ function updatePwdMeter() {
 			break;
 	};
 
-
 	const pwdInitialField = document.getElementById('pwdInitial');
 	const inputStr = pwdInitialField.value;
+	const noSpaceHelp = document.querySelector('.noSpacesHelp');
+	noSpaceHelp.textContent = '';
 
 	if (/\s/.test(inputStr)) {
+		noSpaceHelp.textContent = 'No spaces allowed.';
 		meter.value = 0;
 	} else if (inputStr.length == 0) {
 		 meter.value = 0;
@@ -60,7 +59,6 @@ function numOfPatternMatches() {
 											 /[A-Z]/,
 											 /[-!@#$%^&*()_+=<>?,./{}|;':"\[\]\\]/,
 	];
-
 	const initValue = 0
 	const numOfMatches = regexPatterns.reduce(
 		(accumulator, pattern) => {
@@ -75,7 +73,7 @@ function numOfPatternMatches() {
 }
 
 function updateEmoji(meterValue) {
-	const emoji = document.querySelector('.emoji');
+	const emoji = document.getElementById('idEmoji');
 
 	switch (meterValue) {
 		case 0:
@@ -92,19 +90,22 @@ function updateEmoji(meterValue) {
 			break;
 		case 10:
 			emoji.textContent = '😎️';
+			emoji.classList.add('emoji-spin')
+			emoji.classList.remove('emoji-normal')
 			break;
 	};
-}
 
+	if (meterValue < 10) {
+		emoji.classList.add('emoji-normal')
+		emoji.classList.remove('emoji-spin')
+	}
+}
 
 function confirmPwd() {
 	const pwdInitialField = document.getElementById('pwdInitial');
 	const pwdConfirmField = document.getElementById('pwdConfirm');
-
 	const pwdConfirmHelpSpan = document.querySelector('.pwdConfirmHelp');
-
 	const errorFields = document.querySelectorAll('.error');
-
 	const pwdInitialStr = pwdInitialField.value
 	const pwdConfirmStr = pwdConfirmField.value
 	const confirmLength = pwdConfirmStr.length
@@ -126,17 +127,13 @@ function confirmPwd() {
 	};
 }
 
-// Visibility buttons
 function pwdToggleVisibility() {
-
 	const pwdInitialField = document.getElementById('pwdInitial');
 	const pwdConfirmField = document.getElementById('pwdConfirm');
-
 	const eyeSlashNodeList = document.querySelectorAll('.eyeSlash')
 	const eyeNodeList = document.querySelectorAll('.eye')
 	const leftEye = document.querySelector('.eye')
 
-	
 	if (window.getComputedStyle(leftEye).visibility == 'hidden') {
 		eyeSlashNodeList.forEach(eyeSlash => {eyeSlash.style.visibility = 'hidden';});
 		eyeNodeList.forEach(eye => {eye.style.visibility = 'visible';});
@@ -158,7 +155,6 @@ function listenForEvents() {
 	pwdInitialField.addEventListener('keyup', (e) => {
 		const meterValue = updatePwdMeter()
 		updateEmoji(meterValue)
-
 	});
 	
 	const pwdToggleBtnNodeList = document.querySelectorAll('.pwdToggle')

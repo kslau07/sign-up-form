@@ -223,6 +223,8 @@ label:has(+ input:invalid)::before {
 	position: relative;
 	display: flex;
 	flex-direction: row;
+	font-weight: normal;
+	
 	
 	/* delete me */
 	/* outline: 1px solid green; */
@@ -232,6 +234,16 @@ input[id="pwdInitial"],
 input[id="pwdConfirm"] {
 	padding-left: 33px;
 }
+
+/* <span class="pwdHelp"></span> */
+.noSpacesHelp {
+	position: absolute;
+	top: 60px;
+	width: max-content;
+	color: #f00;
+	font-size: 1rem;
+}
+
 
 span.eyeSlash {
 	position: absolute;
@@ -265,9 +277,6 @@ button.pwdToggle {
 	justify-content: end;
 	width: 100%;
 	text-align: right;
-
-	/* delete me */
-	/* outline:1px solid #ccc; */
 }
 
 .meterContainer-inner {
@@ -286,16 +295,31 @@ meter {
 	/* flex-grow: 1; */
 }
 
-.emoji {
+.emoji-normal {
 	position: absolute;
 	font-size: 1.5rem;
-	/* height: 50px; */
-	/* display: flex; */
-	/* left: -50px; */
-	/* align-items: center; */
-	/* justify-content: center; */
-	/* top: 1px; */
 	right: -25px;
+}
+
+.emoji-spin {
+	position: absolute;
+	font-size: 2rem;
+	right: -25px;
+	animation: spin 0.75s infinite alternate;
+}
+
+@keyframes spin {
+	to {
+		transform: rotate(720deg) scale(2);
+	}
+}
+
+@keyframes twist-up {
+	to {
+		transform: rotateX('360deg');
+		/* transform: rotate(360deg) scale(1); */
+		
+	}
 }
 
 .pwdConfirmHelp {

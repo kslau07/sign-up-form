@@ -145,24 +145,20 @@
 										 <!-- required -->  
 						</li>
 						<li>
-
 							<div style="font-size: 1rem;" class="meterContainer-outer">
 								<div class="meterContainer-inner">Strength:&nbsp;
 									<meter min="0" max="10" low="3" high="7" optimum="9" value="0">0</meter>
-									<div class="emoji">
+									<div class="emoji-normal" id="idEmoji">
 										😐️
 									</div>
 								</div>
-
-
 							</div>
 							
 							<div class="pwdWidgetContainer">
+								<span class="noSpacesHelp"></span>
 								<span class="eye"></span>
 								<span class="eyeSlash"></span>
 								<button class="pwdToggle" type="button"></button>
-								<span class="pwdHelp"></span>
-
 							</div>
 
 							<label for="pwdInitial">Password<span aria-label="required">*</span></label>
@@ -174,15 +170,6 @@
 										 title="Password must be at least 8 characters and contain one of each of the following:
 										  a number, a symbol, a lower and an uppercase letter"
 										 >
-
-
-										 <!-- (?=(.*[0-9]))(?=(.*[A-Z]))(?=(.*[\W]))^.{8,}$ -->
-										 <!-- my regexp: 1 number, 1 lower, 1 upper, 1 symbol -->
-
-										 <!-- (?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,}$ -->
-										 <!-- Should have 1 lowercase letter, 1 uppercase letter, 1 number, and be at least 8 characters long -->
-										 <!-- required --> 
-										 <!-- (?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$ -->
 						</li>
 						<li>
 							<div class="pwdConfirmWidgetContainer">
