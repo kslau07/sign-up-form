@@ -5,10 +5,33 @@
 
 		to do:
 
-		add hide/show for confirm field too
+		help: if pwd contains space
 
-		confirm password with js
-		how?
+		password cannot contain regexp space character \s
+
+		meter:
+		remove from docflow, add back in for max700 only
+
+		figure out how to use portrait mode, maybe don't use it
+		it will not play nice with the meter
+
+		use js to change <meter>, according to "password strength"
+		password strength will be determined by number of individual regexp patterns matched
+		which ones?
+			1 lowercase
+			1 uppercase
+			1 number
+			1 symbol
+			If they have all 4, then it's a strong password
+			If they have 3 then it's fair
+			If they have 2 then it's poor -OR- if they have less than 8 chars
+
+		from stack:
+		https://stackoverflow.com/questions/10777970/can-i-mark-a-field-invalid-from-javascript
+		field.setCustomValidity("Invalid field."); will make the field invalid.
+		field.setCustomValidity(""); will make the field valid unless it fails an HTML5 constraint.
+
+
 
 		mark fields invalid with custom validator
 
@@ -70,6 +93,7 @@
 		<div class="testContainer">
 			<p class="test1">delete me</p>
 			<p class="test2">delete me</p>
+			<button type="button" id="testBtn">testing</button>
 		</div>
 
 		
@@ -121,12 +145,19 @@
 										 <!-- required -->  
 						</li>
 						<li>
+
+							<div style="font-size: 1rem;" class="meterContainer-outer">
+								<div class="meterContainer-inner">Strength:&nbsp;
+									<meter min="0" max="10" low="3" high="7" optimum="9" value="0">0</meter>
+								</div>
+							</div>
 							
 							<div class="pwdWidgetContainer">
 								<span class="eye"></span>
 								<span class="eyeSlash"></span>
 								<button class="pwdToggle" type="button"></button>
 								<span class="pwdHelp"></span>
+
 							</div>
 
 							<label for="pwdInitial">Password<span aria-label="required">*</span></label>
@@ -139,16 +170,14 @@
 										  a number, a symbol, a lower and an uppercase letter"
 										 >
 
+
 										 <!-- (?=(.*[0-9]))(?=(.*[A-Z]))(?=(.*[\W]))^.{8,}$ -->
 										 <!-- my regexp: 1 number, 1 lower, 1 upper, 1 symbol -->
 
 										 <!-- (?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,}$ -->
 										 <!-- Should have 1 lowercase letter, 1 uppercase letter, 1 number, and be at least 8 characters long -->
-										 
-										 <!-- (?=^.{8,}$) -->
 										 <!-- required --> 
 										 <!-- (?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$ -->
-							
 						</li>
 						<li>
 							<div class="pwdConfirmWidgetContainer">
@@ -171,63 +200,4 @@
 			</div>
 		</div>
 	</body>
-
-	<script>
-		'use strict';
-
-		// delete me
-		const test1 = document.querySelector('.test1');
-		const test2 = document.querySelector('.test2');
-
-		// confirm password
-		const pwdInitialField = document.getElementById('pwdInitial')
-		const pwdConfirmField = document.getElementById('pwdConfirm')
-		const pwdConfirmHelpSpan = document.querySelector('.pwdConfirmHelp');
-		const errorFields = document.querySelectorAll('.error');
-
-		pwdConfirmField.addEventListener('keyup', (e) => {
-			const pwdInitialStr = pwdInitialField.value
-			const pwdConfirmStr = pwdConfirmField.value
-			const confirmLength = pwdConfirmStr.length
-			const initialSubStr = pwdInitialStr.slice(0, confirmLength)
-
-			if ( pwdConfirmStr != initialSubStr ) {
-				// alert(pwdConfirmStr.length)
-				pwdConfirmHelpSpan.textContent = 'Passwords do not match.';
-				pwdConfirmHelpSpan.style.color = 'red';
-				errorFields.forEach((elem) => {elem.style.outline = '2px solid red';});
-			} else if ( pwdConfirmStr == pwdInitialStr ) {
-				pwdConfirmHelpSpan.textContent = 'Passwords match!';
-				pwdConfirmHelpSpan.style.color = 'green';
-			}
-
-			if (pwdConfirmStr == '') {
-				// remove help if field empty
-				pwdConfirmHelpSpan.textContent = '';
-				errorFields.forEach((elem) => {elem.style.outline = '';});
-			};
-		});
-
-		// Visibility buttons
-		const pwdToggleBtnNodeList = document.querySelectorAll('.pwdToggle')
-		pwdToggleBtnNodeList.forEach(elem => {elem.addEventListener('click', pwdToggleVisibility)});
-
-		function pwdToggleVisibility() {
-			const eyeSlashNodeList = document.querySelectorAll('.eyeSlash')
-			const eyeNodeList = document.querySelectorAll('.eye')
-			const leftEye = document.querySelector('.eye')
-
-			if (window.getComputedStyle(leftEye).visibility == 'hidden') {
-				eyeSlashNodeList.forEach(eyeSlash => {eyeSlash.style.visibility = 'hidden';});
-				eyeNodeList.forEach(eye => {eye.style.visibility = 'visible';});
-				pwdInitialField.type = 'text'
-				pwdConfirmField.type = 'text'
-			} else {
-				eyeSlashNodeList.forEach(eyeSlash => {eyeSlash.style.visibility = 'visible';});
-				eyeNodeList.forEach(eye => {eye.style.visibility = 'hidden';});
-				pwdInitialField.type = 'password'
-				pwdConfirmField.type = 'password'
-			};
-		};
-	</script>
 </html>
