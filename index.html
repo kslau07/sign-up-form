@@ -5,21 +5,32 @@
 
 		to do:
 
+		Phone number - "required", create mask in field, fade in help on bottom: format (341)-555-7788
+
+		delete temp class for email
+
+		Remove data-help message when field is valid using js
+
+		First name- "optional" right aligned, italics
+		Last name- "optional" right aligned
+
+
+		Create custom-valid class
+		Create custom-invalid class
+		-content: '✖';
+		-content: "✔";
+		- use field.setCustomValidity("message");
+		- Use js to add/remove the 4 required fields to the custom classes
+		- Make both password fields valid if match (green border)
+		- Red border if invalid
+		- Try to create a red x / green check that can sit to the right of the 4 required fields.
+
+		- when we press submit, check each field, mark the invalid fields
+
+		- Try: mark optional vs required fields 
+
 		html pattern match is not the same as your js requirement
 		add custom validator and remove html pattern match
-
-		from stack:
-		https://stackoverflow.com/questions/10777970/can-i-mark-a-field-invalid-from-javascript
-		field.setCustomValidity("Invalid field."); will make the field invalid.
-		field.setCustomValidity(""); will make the field valid unless it fails an HTML5 constraint.
-
-		mark fields invalid with custom validator
-
-		add x and checkmark to invalid, valid fields
-		content: '✖';
-		content: "✔";
-
-		when we press submit, check each field, mark the invalid fields
 
 		when user starts typing in password, wait 3 seconds, then help with rules
 		-or-
@@ -27,15 +38,7 @@
 		https://dribbble.com/shots/4467712-Password-Strength-Meter
 		we have to give password fields more space underneath
 
-		(red border) if confirm fails
-		make both password fields valid if match (green border)
-
-		add meter for password strength with tick marks
-
-		when user is confirming password, match each character as they go
-		use a loop
-		only make confirm field invalid if character mismatch
-
+		- confirm-pwd adds red outline right now, do we need it?
 		- add placeholders
 		- add mask (disappearing placeholder)
 		- add popup tooltip if user gets stuck?
@@ -97,34 +100,51 @@
 				<form action="#" id="signup1">
 					<ul class="rightSide-fieldsBox">
 						<li>
-							<label for="firstname">First name</label>
+							<label for="firstname">First name<span aria-label="optional">optional</span></label>
 							<input type="text" name="firstname" id="firstname">
+							<span data-help="What is your first name?"></span>
+							<!-- <span class="deferredHelp" data-help="Help message">here</span> -->
+							<span class="checkmark">✔</span>
 						</li>
 						<li>
-							<label for="lastname">Last name</label>
+							<label for="lastname">Last name<span aria-label="optional">optional</span></label>
 							<input type="text" name="lastname" id="lastname">
+							<span data-help="What is your last name?"></span>
+							<span class="checkmark">✔</span>
+
 						</li>
-						<li>
-							<label for="email">Email<span aria-label="required">*</span></label>
+						<li class="temp-class">
+							<label for="email">Email<span aria-label="required">required</span></label>
 							<input type="text"
 										 name="email"
 										 id="email"
 										 pattern="\w+@\w+\.\w+"
-										 title="example: john@company.com"
+										 title="example: joe@company.com"
 										 required
 										 >
 										 <!-- required -->
+							<span data-help="example: joe@company.com"></span>
+							<span class="checkmark">✔</span>
+							<span class="exmark">✖</span>
+							
+
 						</li>
 						<li>
-							<label for="phone">Phone number<span aria-label="required">*</span></label>
+							<label for="phone">Phone number<span aria-label="required">required</span></label>
 							<input type="text"
 										 name="phone"
 										 id="phone"
 										 pattern=".?(\d{3}).*(\d{3}).*(\d{4})"
-										 title="example: (341)-255-2770"
+										 title="example: (341)-555-7788"
+										 placeholder="341-555-7788"
 										 required
 										 >
-										 <!-- required -->  
+
+							<span data-help="example: 341-555-7788"></span>
+							<span class="checkmark">✔</span>
+							<span class="exmark">✖</span>
+
+
 						</li>
 						<li>
 							<div style="font-size: 1rem;" class="meterContainer-outer">
@@ -143,7 +163,7 @@
 								<button class="pwdToggle" type="button"></button>
 							</div>
 
-							<label for="pwdInitial">Password<span aria-label="required">*</span></label>
+							<label for="pwdInitial">Password<span aria-label="required">required</span></label>
 							<input type="password"
 										 name="pwdInitial"
 										 id="pwdInitial"
@@ -162,7 +182,7 @@
 								<button class="pwdToggle" type="button"></button>
 								<span class="pwdConfirmHelp"></span>
 							</div>
-							<label for="pwdConfirm">Confirm password<span aria-label="required">*</span></label>
+							<label for="pwdConfirm">Confirm password<span aria-label="required">required</span></label>
 							<input type="password"
 										 name="pwdConfirm"
 										 id="pwdConfirm"

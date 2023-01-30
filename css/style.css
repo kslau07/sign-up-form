@@ -171,6 +171,9 @@ body {
 	display: flex;
 	flex-flow: row wrap;
 	flex-basis: 26rem;
+	/* justify-content: end; */
+	/* align-items: center; */
+	
 } 
 
 .rightSide-fieldsBox :where(label, input) {
@@ -197,17 +200,92 @@ body {
 }
 
 /* Individual field style */
-
-input:invalid {
-	outline: 2px solid red;
+label {
+	/* text-align: right; */
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
-label:has(+ input:invalid)::before {
+label > span {
+	font-style: italic;
+	font-size: 0.8em;
+}
+
+span[data-help] {
+	/* background-color: #000; */
+	position: relative;
+	width: 100%;
+	/* vertical-align: top;; */
+	/* outline: 5px dashed black; */
+	/* display: flex; */
+
+}
+
+input:focus + span[data-help]::before {
+	/* span[data-help]::before { */
 	position: absolute;
-	top: 29px;
-	left: -17px;
-	content: "✖";
+	top: -33px;
+	right: 5px;
+	/* content: " (" attr(data-help) ")"; */
+	content: " " attr(data-help) "";
+	animation: help-fade 60s;
+	font-size: 	1rem;
+	color: green;
+	width: max-content;
+	
+}
+
+@keyframes help-fade {
+	0% {
+		opacity: 0;
+	}
+	4% {
+		opacity: 0;
+	}
+	5% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+input::placeholder {
+	opacity: 1;
+	color: #ccc;
+}
+
+input.customValid {
+	outline: 2px solid green;
+}
+
+.checkmark {
+	position: absolute;
+	top: 23px;
+	right: -23px;
+	color: green;
+	/* outline: 2px solid green; */
+	visibility: hidden;
+}
+
+.exmark {
+	position: absolute;
+	top: 23px;
+	right: -22px;
 	color: red;
+	/* content: "✖"; */
+	visibility: hidden;
+
+}
+
+input.customValid::after {
+	/* Cannot target input pseudo-elements */
+}
+
+
+input.customInvalid {
+	outline: 2px solid red;
 }
 
 input:required {
@@ -220,7 +298,11 @@ li {
 
 
 
-/* Password field */
+/* Password fields */
+
+.temp-class {
+	/* outline: 1px solid red; */
+}
 
 .pwdWidgetContainer,
 .pwdConfirmWidgetContainer {
@@ -304,20 +386,12 @@ meter {
 	position: absolute;
 	font-size: 2rem;
 	right: -25px;
-	animation: spin 0.75s infinite alternate;
+	animation: spin 0.75s alternate-reverse;
 }
 
 @keyframes spin {
 	to {
-		transform: rotate(720deg) scale(2);
-	}
-}
-
-@keyframes twist-up {
-	to {
-		transform: rotateX('360deg');
-		/* transform: rotate(360deg) scale(1); */
-		
+		transform: rotate(720deg) scale(5);
 	}
 }
 

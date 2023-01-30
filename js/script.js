@@ -39,7 +39,7 @@ function updatePwdMeter() {
 	noSpcHelp.textContent = '';
 
 	if (/\s/.test(inputStr)) {
-		noSpcHelp.textContent = 'No spaces allowed.';
+		noSpcHelp.textContent = 'No spaces please.';
 		meter.value = 0;
 	} else if (inputStr.length == 0) {
 		 meter.value = 0;
@@ -64,18 +64,14 @@ function numOfPatternMatches() {
 	const pwdInitialField = document.getElementById('pwdInitial');
 	const inputStr = pwdInitialField.value;
 	const regexPatterns = [/^.{12,}$/, 
-											 /[0-9]/,
-											 /[a-z]/,
-											 /[A-Z]/,
-											 /[-!@#$%^&*()_+=<>?,./{}|;':"\[\]\\]/,
+												 /[0-9]/,
+												 /[a-z]/,
+												 /[A-Z]/,
+												 /[-!@#$%^&*()_+=<>?,./{}|;':"\[\]\\]/,
 	];
 	const initValue = 0
-	const numOfMatches = regexPatterns.reduce(
-		(accumulator, pattern) => {
-			if (pattern.test(inputStr)) {
-				accumulator += 1
-			}
-			return accumulator
+	const numOfMatches = regexPatterns.reduce((accumulator, pattern) => {
+			return pattern.test(inputStr) ? ++accumulator : accumulator;
 		}, initValue
 	);
 	return numOfMatches
@@ -120,12 +116,18 @@ function confirmPwd() {
 	const confirmLength = pwdConfirmStr.length
 	const initialSubStr = pwdInitialStr.slice(0, confirmLength)
 
+	// Set custom validity when confirm-pwd doesn't match pwd
+
+	// pwdInitialField.setCustomValidity('Invalid password.')
+
 	if ( pwdConfirmStr != initialSubStr ) {
 		pwdConfirmHelpSpan.textContent = 'Passwords do not match.';
+	  pwdConfirmField.setCustomValidity('Passwords do not match.')
 		pwdConfirmHelpSpan.style.color = 'red';
-		errorFields.forEach((elem) => {elem.style.outline = '2px solid red';});
+		// errorFields.forEach((elem) => {elem.style.outline = '2px solid red';});
 	} else if ( pwdConfirmStr == pwdInitialStr ) {
 		pwdConfirmHelpSpan.textContent = 'Passwords match!';
+	  pwdConfirmField.setCustomValidity('')
 		pwdConfirmHelpSpan.style.color = 'green';
 	}
 
@@ -156,7 +158,66 @@ function pwdToggleVisibility() {
 	};
 };
 
+// Add green border and green checkmark if length of "first name" is > 0
+function markFieldValidity(field) {
+	const checkmarkSpan = document.querySelector(`#${field.id} ~ .checkmark`);
+	const exmarkSpan = document.querySelector(`#${field.id} ~ .exmark`);
+	const emailPattern = /\w+@\w+\.\w+/
+
+
+	if (field.id.includes("name")) return validateName(field, checkmarkSpan);
+	if (field.id == 'email') return validateEmail(field, checkmarkSpan, exmarkSpan, emailPattern);
+	if (field.id == 'phone') return validatePhone(field, checkmarkSpan, exmarkSpan);
+};
+
+function validateEmail(field, checkmarkSpan, exmarkSpan, emailPattern) {
+	if (field.value == '') {
+		field.classList.remove('customValid')
+		field.classList.remove('customInvalid')
+		checkmarkSpan.style.visibility = 'hidden';
+		exmarkSpan.style.visibility = 'hidden';
+	} else if (emailPattern.test(field.value)) {
+		field.classList.remove('customInvalid')
+		field.classList.add('customValid')
+		// field.classList.add('customValidSpan')
+		checkmarkSpan.style.visibility = 'visible';
+		exmarkSpan.style.visibility = 'hidden';
+	} else if (!emailPattern.test(field.value)) {
+		field.classList.remove('customValid')
+		field.classList.add('customInvalid')
+		checkmarkSpan.style.visibility = 'hidden';
+		exmarkSpan.style.visibility = 'visible';
+	};
+};
+
+function validatePhone(field, checkmarkSpan, exmarkSpan) {
+	// alert(1)
+};
+
+function validateName(field, checkmarkSpan) {
+	// const checkmarkSpan = document.querySelector(`#${field.id} ~ .checkmark`);
+
+	if (field.value.length > 0) {
+		field.classList.add('customValid')
+		field.classList.add('customValidSpan')
+		checkmarkSpan.style.visibility = 'visible';
+	} else if (field.value.length == 0) {
+		field.classList.remove('customValid')
+		checkmarkSpan.style.visibility = 'hidden';
+	};
+};
+
+
+// select all inputs instead of using them individually 
+
 function listenForEvents() {
+	const inputFields = document.querySelectorAll('input')
+
+	inputFields.forEach(inputField => {
+		inputField.addEventListener('keyup', (e) => markFieldValidity(inputField))
+	});
+
+
 	const pwdConfirmField = document.getElementById('pwdConfirm');
 	pwdConfirmField.addEventListener('keyup', confirmPwd);
 	
