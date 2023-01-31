@@ -11,11 +11,13 @@ function listenForEvents() {
 	pwdToggleBtnNodeList.forEach(elem => {
 		elem.addEventListener('click', pwdToggleVisibility);
 	});
+
+	const btnSbmt = document.querySelector('.btnSubmit');
+	btnSbmt.addEventListener('click', submitDialog)
 };
 
 listenForEvents()
 
-// Add green border and green checkmark if length of "first name" is > 0
 function updateField(field) {
 	const checkmarkSpan = document.querySelector(`#${field.id} ~ .checkmark`);
 	const exmarkSpan = document.querySelector(`#${field.id} ~ .exmark`);
@@ -35,7 +37,7 @@ function isValid(field) {
 
 	const pattern = {
 		email: /\w+@\w+\.\w+/,
-		phone: /.?(\d{3}).*(\d{3}).*(\d{4})/,
+		phone: /^\D?(\d{3})\D*(\d{3})\D*(\d{4})$/,
 		firstname: /.+/,
 		lastname: /.+/,
 	}[field.id];
@@ -54,7 +56,6 @@ function updateOptionalFieldValidity(field, checkmarkSpan, isValid) {
 		checkmarkSpan.style.visibility = 'hidden';
 	};
 };
-
 
 function updateRequiredFieldValidity(field, checkmarkSpan, exmarkSpan, isValid) {
 	
@@ -188,8 +189,6 @@ function updateEmoji(meterValue) {
 	};
 };
 
-
-// Must return bool
 function isValidPwdConfirm(field) {
 	const pwdInitialField = document.getElementById('pwdInitial');
 	const pwdConfirmField = document.getElementById('pwdConfirm');
@@ -200,7 +199,6 @@ function isValidPwdConfirm(field) {
 	if (pwdConfirmField.value != initialSubStr) {
 		return false;
 	} else if (pwdConfirmField.value == pwdInitialField.value) {
-	// } else if (pwdConfirmField.value == initialSubStr) {
 		return true
 	};
 };
@@ -245,20 +243,11 @@ function pwdToggleVisibility() {
 	};
 };
 
-// Testing only
-function fillInputs() {
-	const fname = document.getElementById('firstname');
-	const lname = document.getElementById('lastname');
-	const eml = document.getElementById('email');
-	const phn = document.getElementById('phone');
-	const pwdInit = document.getElementById('pwdInitial');
-	const pwdCon = document.getElementById('pwdConfirm');
-	fname.value = 'Joe';
-	lname.value = 'Schmidt';
-	eml.value = 'joe@company.com';
-	phn.value = '341-555-7788';
-	pwdInit.value = '';
-	pwdCon.value = '';
+function submitDialog() {
+	if (confirm("Submit form?")) {
+		txt = "Form submitted.";
+		window.location.reload();
+	} else {
+		txt = "Submit cancelled";
+	}
 };
-
-// fillInputs()

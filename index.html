@@ -1,36 +1,9 @@
 <!--
 		https://cdn.statically.io/gh/TheOdinProject/curriculum/5f37d43908ef92499e95a9b90fc3cc291a95014c/html_css/project-sign-up-form/sign-up-form.png
-
 		https://www.theodinproject.com/lessons/intermediate-html-and-css-sign-up-form
-
-		to do:
-		
-		Change this back:
-		<input type="password"
-
-		confirm-password turns green too early, need to rework logic for true/valid		
-		remove "Passwords match!" when field is blank again
-
-		do not allow phone number with more than 10 digits
-			- right now we can write an unlimited amount
-
-		For better UX, delay red invalid widgets for 2 seconds
-		Create mask for phone number - future project
-
-		Stop data-help from appearing if field is valid 
-
-		- when we press submit, check each field, mark the invalid fields
-
-		- Try: mark optional vs required fields 
-
-		Not password related:
-		- add woff2 fonts
 
 		black and red leaves:
 		https://unsplash.com/photos/JtAfZxiwFmg
-
-		Skim maintainable CSS to get a better idea of how to organize your CSS
-		https://maintainablecss.com/chapters/semantics/
 -->
 
 <!DOCTYPE html>
@@ -118,7 +91,7 @@
 								<button class="pwdToggle" type="button"></button>
 							</div>
 							<label for="pwdInitial">Password<span aria-label="required">required</span></label>
-							<input type="text"
+							<input type="password"
 										 name="pwdInitial"
 										 id="pwdInitial"
 										 title="Password must be at least 8 characters and contain one of each of the following:
@@ -126,7 +99,6 @@
 											required>
 							<span class="checkmark">✔</span>
 							<span class="exmark">✖</span>
-			 
 						</li>
 						<li>
 							<div class="pwdConfirmWidgetContainer">
@@ -136,7 +108,7 @@
 								<span class="pwdConfirmHelp"></span>
 							</div>
 							<label for="pwdConfirm">Confirm password<span aria-label="required">required</span></label>
-							<input type="text"
+							<input type="password"
 										 name="pwdConfirm"
 										 id="pwdConfirm"
 										 required>
