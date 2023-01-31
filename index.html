@@ -4,11 +4,12 @@
 		https://www.theodinproject.com/lessons/intermediate-html-and-css-sign-up-form
 
 		to do:
+		
+		Change this back:
+		<input type="password"
 
-		delete .error from both password fields
-
-		mark invalid if pwd-initial doesn't match pattern
-		mark invalid if pwd-confirm doesn't match pwd-initial
+		confirm-password turns green too early, need to rework logic for true/valid		
+		remove "Passwords match!" when field is blank again
 
 		do not allow phone number with more than 10 digits
 			- right now we can write an unlimited amount
@@ -21,9 +22,6 @@
 		- when we press submit, check each field, mark the invalid fields
 
 		- Try: mark optional vs required fields 
-
-		html pattern match is not the same as your js requirement
-		add custom validator and remove html pattern match
 
 		Not password related:
 		- add woff2 fonts
@@ -46,15 +44,6 @@
 		<link href="https://fonts.googleapis.com/css2?family=Oxygen&display=swap" rel="stylesheet">
 	</head>
 	<body>
-
-		<!-- delete me -->
-		<div class="testContainer">
-			<p class="test1">delete me</p>
-			<p class="test2">delete me</p>
-			<button type="button" id="testBtn">testing</button>
-		</div>
-
-		
 		<div class="leftSide">
 			<div class="leftSide-overlayBox">
 				<img src="images/logo.svg" alt="A logo of a globe" class="leftSide-logoImage">
@@ -94,8 +83,7 @@
 										 pattern="\w+@\w+\.\w+"
 										 title="example: joe@company.com"
 										 required
-										 >
-										 <!-- required -->
+							>
 							<span data-help="example: joe@company.com"></span>
 							<span class="checkmark">✔</span>
 							<span class="exmark">✖</span>
@@ -109,13 +97,10 @@
 										 title="example: (341)-555-7788"
 										 placeholder="341-555-7788"
 										 required
-										 >
-
+							>
 							<span data-help="example: 341-555-7788"></span>
 							<span class="checkmark">✔</span>
 							<span class="exmark">✖</span>
-
-
 						</li>
 						<li>
 							<div style="font-size: 1rem;" class="meterContainer-outer">
@@ -133,14 +118,12 @@
 								<button class="pwdToggle" type="button"></button>
 							</div>
 							<label for="pwdInitial">Password<span aria-label="required">required</span></label>
-							<input type="password"
+							<input type="text"
 										 name="pwdInitial"
 										 id="pwdInitial"
-										 class="error"
 										 title="Password must be at least 8 characters and contain one of each of the following:
 										  a number, a symbol, a lower and an uppercase letter"
-											required
-										 >
+											required>
 							<span class="checkmark">✔</span>
 							<span class="exmark">✖</span>
 			 
@@ -153,15 +136,12 @@
 								<span class="pwdConfirmHelp"></span>
 							</div>
 							<label for="pwdConfirm">Confirm password<span aria-label="required">required</span></label>
-							<input type="password"
+							<input type="text"
 										 name="pwdConfirm"
 										 id="pwdConfirm"
-										 class="error"
 										 required>
-							<!-- required -->
 							<span class="checkmark">✔</span>
 							<span class="exmark">✖</span>
-
 						</li>
 					</ul>
 				</form>

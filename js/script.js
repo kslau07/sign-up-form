@@ -4,55 +4,34 @@ function listenForEvents() {
 	const inputFields = document.querySelectorAll('input');
 
 	inputFields.forEach(inputField => {
-		inputField.addEventListener('keyup', (e) => validateField(inputField));
+		inputField.addEventListener('keyup', (e) => updateField(inputField));
 	});
 
-	// const pwdInitialField = document.getElementById('pwdInitial');
-	// pwdInitialField.addEventListener('keyup', (e) => {
-	// 	const meterValue = updatePwdMeter();
-	// 	updatePwdValidity(meterValue);
-	// 	updateEmoji(meterValue);
-	// });
-	
 	const pwdToggleBtnNodeList = document.querySelectorAll('.pwdToggle')
 	pwdToggleBtnNodeList.forEach(elem => {
 		elem.addEventListener('click', pwdToggleVisibility);
 	});
-
-	// const pwdConfirmField = document.getElementById('pwdConfirm');
-	// pwdConfirmField.addEventListener('keyup', confirmPwd);
 };
 
 listenForEvents()
 
 // Add green border and green checkmark if length of "first name" is > 0
-function validateField(field) {
+function updateField(field) {
 	const checkmarkSpan = document.querySelector(`#${field.id} ~ .checkmark`);
 	const exmarkSpan = document.querySelector(`#${field.id} ~ .exmark`);
 
-	// pwdInitial 
-	// pwdConfirm
-	// Can go here now
-
-	// if (field.id == 'pwdInitial') return validatePwdInitial(field);
 
 	if (field.hasAttribute('required')) {
-		return updateFieldValidity(field, checkmarkSpan, exmarkSpan, isValid(field))
+		return updateRequiredFieldValidity(field, checkmarkSpan, exmarkSpan, isValid(field))
+		
 	} else {
-		return updateFirstLastField(field, checkmarkSpan, isValid(field));
+		return updateOptionalFieldValidity(field, checkmarkSpan, isValid(field));
 	};
 };
 
-
 function isValid(field) {
-	// confirm doesn't use pattern, do not put it here
-
 	if (field.id == 'pwdInitial') return isValidPwdInitial(field);
 	if (field.id == 'pwdConfirm') return isValidPwdConfirm(field);
-
-	// use guard clause for pwdInitial
-	// use guard clause for pwdConfirm
-	// pwdInitial: /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
 
 	const pattern = {
 		email: /\w+@\w+\.\w+/,
@@ -65,8 +44,8 @@ function isValid(field) {
 };
 
 
-function updateFirstLastField(field, checkmarkSpan, patternMatch) {
-	if (patternMatch) {
+function updateOptionalFieldValidity(field, checkmarkSpan, isValid) {
+	if (isValid) {
 		field.classList.add('customValid');
 		field.classList.add('customValidSpan');
 		checkmarkSpan.style.visibility = 'visible';
@@ -77,53 +56,48 @@ function updateFirstLastField(field, checkmarkSpan, patternMatch) {
 };
 
 
-function updateFieldValidity(field, checkmarkSpan, exmarkSpan, patternMatch) {
+function updateRequiredFieldValidity(field, checkmarkSpan, exmarkSpan, isValid) {
+	
+	const pwdConfirmIndeterminate = isPwdConfirmIndeterminate();
 
-	if (field.value == '') {
+	if (field.value == '' || (field.id == 'pwdConfirm' && pwdConfirmIndeterminate)) {
 		field.classList.remove('customValid');
 		field.classList.remove('customInvalid');
 		checkmarkSpan.style.visibility = 'hidden';
 		exmarkSpan.style.visibility = 'hidden';
-	} else if (patternMatch) {
-		field.classList.remove('customInvalid');
+		field.setCustomValidity('Please fill out this field.');
+	} else if (isValid) {
 		field.classList.add('customValid');
 		checkmarkSpan.style.visibility = 'visible';
+		field.classList.remove('customInvalid');
 		exmarkSpan.style.visibility = 'hidden';
-	} else if (!patternMatch) {
-		field.classList.remove('customValid');
+		field.setCustomValidity('');
+	} else if (!isValid) {
 		field.classList.add('customInvalid');
-		checkmarkSpan.style.visibility = 'hidden';
 		exmarkSpan.style.visibility = 'visible';
+		field.classList.remove('customValid');
+		checkmarkSpan.style.visibility = 'hidden';
+		field.setCustomValidity('Please fill out this field.');
 	};
+
+	noSpacesHelp()
+	confirmHelp()
 };
 
-	// const pwdInitialField = document.getElementById('pwdInitial');
-	// pwdInitialField.addEventListener('keyup', (e) => {
-	// 	const meterValue = updatePwdMeter();
-	// 	updatePwdValidity(meterValue);
-	// 	updateEmoji(meterValue);
-	// });
+function isPwdConfirmIndeterminate() {
+	const pwdInitialField = document.getElementById('pwdInitial');
+	const pwdConfirmField = document.getElementById('pwdConfirm');
+	const confirmLength = pwdConfirmField.value.length;
+	const initialSubStr = pwdInitialField.value.slice(0, confirmLength);
 
-	// Merge this function into isValidPwdInitial()
-	// function updatePwdValidity(meterValue) {
-		// const pwdInitialField = document.getElementById('pwdInitial');
-		// if (meterValue == 0) pwdInitialField.setCustomValidity('');
-		// meterValue < 5 ? pwdInitialField.setCustomValidity('Invalid password.') : pwdInitialField.setCustomValidity('');
-	// };
+	return (pwdConfirmField.value == initialSubStr && initialSubStr != pwdInitialField.value) ? true : false;
+}
 
-	// This must return a bool to pass to updateFieldValidity()
-	function isValidPwdInitial(field) {
-		const meterValue = updatePwdMeter();
-		updateEmoji(meterValue);
-		// updatePwdValidity(meterValue);
-
-		// const pwdInitialField = document.getElementById('pwdInitial');
-		// if (meterValue == 0) pwdInitialField.setCustomValidity('');
-		// meterValue < 5 ? pwdInitialField.setCustomValidity('Invalid password.') : pwdInitialField.setCustomValidity('');
-
-		return meterValue >= 5 ? true : false; 
-
-	};
+function isValidPwdInitial(field) {
+	const meterValue = calcPwdMeter();
+	updateEmoji(meterValue);
+	return meterValue >= 5 ? true : false; 
+};
 
 function numOfPatternMatches() {
 	const pwdInitialField = document.getElementById('pwdInitial');
@@ -142,7 +116,7 @@ function numOfPatternMatches() {
 	return numOfMatches;
 };
 
-function updatePwdMeter() {
+function calcPwdMeter() {
 	const meter = document.querySelector('meter');
 	const numOfMatches = numOfPatternMatches()
 	
@@ -164,9 +138,15 @@ function updatePwdMeter() {
 			break;
 	};
 
+	return meter.value;
+};
+
+function noSpacesHelp() {
 	const pwdInitialField = document.getElementById('pwdInitial');
-	const inputStr = pwdInitialField.value;
 	const noSpcHelp = document.querySelector('.noSpacesHelp');
+	const inputStr = pwdInitialField.value;
+	const meter = document.querySelector('meter');
+
 	noSpcHelp.textContent = '';
 
 	if (/\s/.test(inputStr)) {
@@ -177,8 +157,7 @@ function updatePwdMeter() {
 	} else if (inputStr.length < 8) {
 		 meter.value = 2;
 	};
-	return meter.value;
-};
+}
 
 function updateEmoji(meterValue) {
 	const emoji = document.getElementById('idEmoji');
@@ -214,50 +193,36 @@ function updateEmoji(meterValue) {
 function isValidPwdConfirm(field) {
 	const pwdInitialField = document.getElementById('pwdInitial');
 	const pwdConfirmField = document.getElementById('pwdConfirm');
-	const pwdConfirmHelpSpan = document.querySelector('.pwdConfirmHelp');
 	const confirmLength = pwdConfirmField.value.length;
 	const initialSubStr = pwdInitialField.value.slice(0, confirmLength);
 
 
 	if (pwdConfirmField.value != initialSubStr) {
-		pwdConfirmHelpSpan.textContent = 'Passwords do not match.';
-		pwdConfirmHelpSpan.style.color = 'red';
 		return false;
-	} else	if (pwdConfirmField.value == initialSubStr) {
-		pwdConfirmHelpSpan.textContent = 'Passwords match!';
-	  // pwdConfirmField.setCustomValidity('')
-		pwdConfirmHelpSpan.style.color = 'green';
+	} else if (pwdConfirmField.value == pwdInitialField.value) {
+	// } else if (pwdConfirmField.value == initialSubStr) {
 		return true
 	};
 };
 
-function disabled_confirmPwd() {
-	// const pwdInitialField = document.getElementById('pwdInitial');
-	// const pwdConfirmField = document.getElementById('pwdConfirm');
-	// const pwdConfirmHelpSpan = document.querySelector('.pwdConfirmHelp');
-	// const errorFields = document.querySelectorAll('.error');
-	const pwdInitialStr = pwdInitialField.value;
-	const pwdConfirmStr = pwdConfirmField.value;
-	const confirmLength = pwdConfirmStr.length;
-	const initialSubStr = pwdInitialStr.slice(0, confirmLength);
+function confirmHelp() {
+	const pwdInitialField = document.getElementById('pwdInitial');
+	const pwdConfirmField = document.getElementById('pwdConfirm');
+	const pwdConfirmHelpSpan = document.querySelector('.pwdConfirmHelp');
+	const confirmLength = pwdConfirmField.value.length;
+	const initialSubStr = pwdInitialField.value.slice(0, confirmLength);
 
+	if (pwdInitialField.value == '') return;
 
-	if ( pwdConfirmStr != initialSubStr ) {
+	if (pwdConfirmField.value != initialSubStr) {
 		pwdConfirmHelpSpan.textContent = 'Passwords do not match.';
-	  pwdConfirmField.setCustomValidity('Passwords do not match.');
 		pwdConfirmHelpSpan.style.color = 'red';
-		// errorFields.forEach((elem) => {elem.style.outline = '2px solid red';});
-	} else if ( pwdConfirmStr == pwdInitialStr ) {
+	} else if (pwdConfirmField.value == pwdInitialField.value ) {
 		pwdConfirmHelpSpan.textContent = 'Passwords match!';
-	  pwdConfirmField.setCustomValidity('')
 		pwdConfirmHelpSpan.style.color = 'green';
-	};
-
-	if (pwdConfirmStr == '') {
-		// remove help if field empty
+	} else {
 		pwdConfirmHelpSpan.textContent = '';
-		errorFields.forEach((elem) => {elem.style.outline = '';});
-	};
+	} 
 };
 
 function pwdToggleVisibility() {
@@ -280,7 +245,7 @@ function pwdToggleVisibility() {
 	};
 };
 
-// Delete me
+// Testing only
 function fillInputs() {
 	const fname = document.getElementById('firstname');
 	const lname = document.getElementById('lastname');
@@ -294,24 +259,6 @@ function fillInputs() {
 	phn.value = '341-555-7788';
 	pwdInit.value = '';
 	pwdCon.value = '';
-
-	// ABCDefgh123!
-	// Abcdef1!
-	// Abcdef11
-	// abcdef11
-	// abcdef!!
 };
+
 // fillInputs()
-
-// delete me
-function testElems() {
-	const test1 = document.querySelector('.test1');
-	const test2 = document.querySelector('.test2');
-	
-	const meter = document.querySelector('meter');
-	meter.value = 2;
-};
-const testBtn = document.querySelector('#testBtn');
-testBtn.addEventListener('click', testElems);
-
-
