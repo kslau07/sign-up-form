@@ -29,6 +29,5 @@ function testRegexp() {
 	);
 	console.log(pwdPatternMatchCount);
 };
-testRegexp()
-
+// testRegexp()
 

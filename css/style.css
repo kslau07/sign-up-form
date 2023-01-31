@@ -173,7 +173,6 @@ body {
 	flex-basis: 26rem;
 	/* justify-content: end; */
 	/* align-items: center; */
-	
 } 
 
 .rightSide-fieldsBox :where(label, input) {
@@ -208,6 +207,9 @@ label {
 }
 
 label > span {
+	position: absolute;
+	top: 56px;
+	right: 8px;
 	font-style: italic;
 	font-size: 0.8em;
 }
@@ -219,7 +221,6 @@ span[data-help] {
 	/* vertical-align: top;; */
 	/* outline: 5px dashed black; */
 	/* display: flex; */
-
 }
 
 input:focus + span[data-help]::before {
@@ -300,10 +301,6 @@ li {
 
 /* Password fields */
 
-.temp-class {
-	/* outline: 1px solid red; */
-}
-
 .pwdWidgetContainer,
 .pwdConfirmWidgetContainer {
 	position: relative;
@@ -352,7 +349,8 @@ button.pwdToggle {
 
 .meterContainer-outer {
 	position: absolute;
-	top: 60px;
+	top: 0px;
+	right: 25px;
 	width: max-content;
 	display: flex;
 	justify-content: end;
@@ -384,7 +382,7 @@ meter {
 
 .emoji-spin {
 	position: absolute;
-	font-size: 2rem;
+	font-size: 1.8rem;
 	right: -25px;
 	animation: spin 0.75s alternate-reverse;
 }
