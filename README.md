@@ -4,7 +4,7 @@
 
 ## Project description
 
-Create a simple sign-up page that has the contains the following fields:
+Create a simple sign-up page that contains the following fields:
 
 - First name
 - Last name
