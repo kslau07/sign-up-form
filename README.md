@@ -11,7 +11,7 @@ Create a simple sign-up page that contains the following fields:
 - Email
 - Phone number
 - Password
-- Confirm password
+- Confirm password 
 
 It should also display a large picture on the left-hand side with a logo overlaid.
 
